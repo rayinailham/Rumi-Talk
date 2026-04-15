@@ -7,6 +7,12 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
   css: ['~/assets/index.css'],
+  runtimeConfig: {
+    // Server-only env vars (not exposed to client)
+    geminiApiKey: process.env.GEMINI_API_KEY || '',
+    supabaseUrl: process.env.SUPABASE_URL || '',
+    supabaseKey: process.env.SUPABASE_KEY || '',
+  },
   vite: {
     optimizeDeps: {
       include: [
@@ -26,3 +32,4 @@ export default defineNuxtConfig({
     }
   }
 })
+
