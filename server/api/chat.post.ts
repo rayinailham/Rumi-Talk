@@ -1,6 +1,5 @@
-import { serverSupabaseClient } from '#supabase/server'
-// IMPORTANT: If you aren't using @nuxtjs/supabase, you can instantiate the js client manually:
 import { createClient } from '@supabase/supabase-js'
+import { getEmbedding } from '../utils/embeddings'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -15,15 +14,13 @@ export default defineEventHandler(async (event) => {
   const supabaseKey = process.env.SUPABASE_KEY!
   const supabase = createClient(supabaseUrl, supabaseKey)
 
-  // 2. TBD: Get embedding for userConcern
-  // You will need to call OpenAI or Gemini here to get the vector.
-  // Example: const query_embedding = await getOpenAIEmbedding(userConcern)
-  const mock_query_embedding = new Array(768).fill(0.01) // Replace with real embedding (768 dimensions for Gemini)
+  // 2. Get real embedding for userConcern
+  const queryEmbedding = await getEmbedding(userConcern)
 
   // 3. Search for the best Rumi quote
   const { data: quotes, error } = await supabase.rpc('match_rumi_quotes', {
-    query_embedding: mock_query_embedding,
-    match_threshold: 0.78, // Adjust threshold based on your model's tendencies
+    query_embedding: queryEmbedding,
+    match_threshold: 0.1, // Set lower for testing, adjust as needed
     match_count: 1
   })
 

@@ -22,3 +22,12 @@ logs
 .env
 .env.*
 !.env.example
+
+# Generated data and script outputs
+scripts/sql_batches/
+scripts/sql_simple/
+scripts/*.json
+scripts/*.sql
+*.sql
+temp_*.sql
+node_modules/
