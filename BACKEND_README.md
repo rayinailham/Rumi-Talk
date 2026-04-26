@@ -10,7 +10,7 @@ The backend uses a **RAG (Retrieval-Augmented Generation)** pipeline powered by:
 |-----------|-----------|---------|
 | **Database** | Supabase + pgvector | Store Rumi quotes with 768-dim vector embeddings |
 | **Embeddings** | `@xenova/transformers` (all-mpnet-base-v2) | Generate query embeddings for semantic search |
-| **LLM** | `@google/genai` (Gemini 2.5 Flash) | Quote selection (structured output) + explanation (streaming) |
+| **LLM** | `@google/genai` (Gemini 3.0 Flash Preview) | Quote selection (structured output) + explanation (streaming) |
 | **Server** | Nuxt Nitro | API routes with Server-Sent Events |
 
 ## 📂 File Structure
@@ -135,7 +135,7 @@ Uses `@google/genai`'s `responseJsonSchema` feature to guarantee the LLM returns
 import { GoogleGenAI, Type } from '@google/genai'
 
 const response = await ai.models.generateContent({
-  model: 'gemini-2.5-flash',
+  model: 'gemini-3-flash-preview',
   contents: 'Select the best quote...',
   config: {
     responseMimeType: 'application/json',
@@ -160,7 +160,7 @@ Uses `generateContentStream` for real-time word-by-word delivery:
 
 ```typescript
 const stream = await ai.models.generateContentStream({
-  model: 'gemini-2.5-flash',
+  model: 'gemini-3-flash-preview',
   contents: 'Explain this quote as Rumi...',
   config: {
     systemInstruction: RUMI_SYSTEM_PROMPT,

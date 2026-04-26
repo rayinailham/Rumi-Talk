@@ -14,7 +14,7 @@ if (!apiKey) {
 export const ai = new GoogleGenAI({ apiKey: apiKey || '' })
 
 // ─── Model Constants ────────────────────────────────────────────────────────
-export const GEMINI_MODEL = 'gemini-2.5-flash'
+export const GEMINI_MODEL = 'gemini-3-flash-preview'
 
 // ─── Rumi System Prompt ─────────────────────────────────────────────────────
 // Used by the chat endpoint to instruct the LLM to adopt Rumi's persona.
